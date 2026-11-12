@@ -1,0 +1,5 @@
+def calcular_preu  (preu_peces, cost_ma_de_obra):
+    preu = (preu_peces + cost_ma_de_obra)
+    return preu
+resultat = calcular_preu(45, 30)
+print(f'Preu total: {resultat}')
