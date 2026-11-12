@@ -1,0 +1,37 @@
+def aplicar_descompte(preu, tipus_client):
+    # Convertim a minúscules perquè accepti "Empresa", "EMPRESA", etc.
+    tipus = tipus_client.lower()
+
+    if tipus == "particular":
+        descompte = 0
+    elif tipus == "empresa":
+        descompte = 10
+    elif tipus == "habitual":
+        descompte = 15
+    else:
+        print(f"Error: el tipus de client '{tipus_client}' no és vàlid.")
+        return preu
+
+    return preu - (preu * descompte / 100)
+
+
+def calcular_iva(preu):
+    # Retorna NOMÉS l'import de l'IVA (el 21 %), no el preu amb IVA
+    return preu * 21 / 100
+
+
+def calcular_factura(preu, tipus_client):
+    # 1. Reutilitzem aplicar_descompte() per obtenir el preu rebaixat
+    preu_descompte = aplicar_descompte(preu, tipus_client)
+
+    # 2. Reutilitzem calcular_iva() sobre el preu ja rebaixat
+    iva = calcular_iva(preu_descompte)
+
+    # 3. El total és el preu amb descompte més l'IVA
+    return preu_descompte + iva
+
+
+# Proves
+print(calcular_factura(100, "particular"))   # 121.0
+print(calcular_factura(100, "empresa"))      # 108.9
+print(calcular_factura(100, "habitual"))     # 102.85
